@@ -1,7 +1,8 @@
-from flask import Flask
+from flask import Flask, request, jsonify, render_template, flash, redirect
 import onnxruntime as rt
 import numpy as np
 from PIL import Image
+import base64
 
 classes = ['shamiko', 'momo']
 
@@ -11,11 +12,28 @@ input_name = sess.get_inputs()[0].name
 
 app = Flask(__name__)
 
-@app.route('/api/v1/identify')
+
+@app.route('/')
+def index():
+    """Index for testing
+    """
+    return render_template('index.html')
+
+
+@app.route('/api/v1/identify', methods=['POST'])
 def identify():
-    
+
+    if 'file' not in request.files:
+        return jsonify({"response": "No file part"}), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"response": "No file selected"}), 400
+
+    # TODO: Determine if file is image and limit upload size
+
     # Load image
-    im = Image.open("docs/shami_test.png")
+    im = Image.open(file.stream)
     im = im.convert('RGB')
     im = im.resize((224, 224))
     in_data = np.array(im)
@@ -27,4 +45,4 @@ def identify():
     out_data = sess.run(None, {input_name: in_data})
     out_data = np.nan_to_num(out_data)
     
-    return "Result: " + classes[np.argmax(out_data)]
+    return jsonify({"response": classes[np.argmax(out_data)]}), 200
