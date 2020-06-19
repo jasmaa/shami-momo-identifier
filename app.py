@@ -11,6 +11,7 @@ sess = rt.InferenceSession('models/final_model.onnx')
 input_name = sess.get_inputs()[0].name
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
 @app.route('/')
@@ -30,10 +31,12 @@ def identify():
     if file.filename == '':
         return jsonify({"response": "No file selected"}), 400
 
-    # TODO: Determine if file is image and limit upload size
-
     # Load image
-    im = Image.open(file.stream)
+    try:
+        im = Image.open(file.stream)
+    except OSError:
+        return jsonify({"response": "Not a supported image format"}), 400
+
     im = im.convert('RGB')
     im = im.resize((224, 224))
     in_data = np.array(im)
