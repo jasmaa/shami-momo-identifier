@@ -1,17 +1,17 @@
 from flask import Flask, request, jsonify, render_template, flash, redirect
+from flask_cors import CORS
 import onnxruntime as rt
 import numpy as np
 from PIL import Image
 import base64
+
+app = Flask(__name__)
 
 classes = ['shamiko', 'momo']
 
 # Load model
 sess = rt.InferenceSession('models/final_model.onnx')
 input_name = sess.get_inputs()[0].name
-
-app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
 @app.route('/')
@@ -47,5 +47,11 @@ def identify():
     # Run through model
     out_data = sess.run(None, {input_name: in_data})
     out_data = np.nan_to_num(out_data)
-    
+
     return jsonify({"response": classes[np.argmax(out_data)]}), 200
+
+
+def create_app():
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+    CORS(app)
+    return app
