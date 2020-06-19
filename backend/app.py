@@ -6,6 +6,8 @@ from PIL import Image
 import base64
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+CORS(app)
 
 classes = ['shamiko', 'momo']
 
@@ -49,9 +51,3 @@ def identify():
     out_data = np.nan_to_num(out_data)
 
     return jsonify({"response": classes[np.argmax(out_data)]}), 200
-
-
-def create_app():
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-    CORS(app)
-    return app
