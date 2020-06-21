@@ -5,7 +5,7 @@ Identifies if an image is of Shamiko or Momo
 ## Development
 
     # Frontend
-    cd frontend && yarn start
+    cd web && yarn start
 
     # Backend
     cd backend && flask run

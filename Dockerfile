@@ -1,9 +1,9 @@
 FROM node:alpine as frontend
 WORKDIR /tmp/web
-COPY frontend/package.json .
-COPY frontend/yarn.lock .
+COPY web/package.json .
+COPY web/yarn.lock .
 RUN yarn install
-COPY frontend .
+COPY web .
 RUN yarn build
 
 FROM python:3.6
