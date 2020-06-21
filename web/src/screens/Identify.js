@@ -13,6 +13,7 @@ const Identify = props => {
     const uploadImage = data => {
 
         setFile(data);
+        setName('');
 
         const reader = new FileReader();
         reader.onload = e => {
