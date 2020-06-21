@@ -1,0 +1,18 @@
+.drop-box {
+    min-height: 30em;
+    border: dashed;
+    border-width: 0.3em;
+    border-radius: 1em;
+    border-color: gray;
+    outline: none;
+    user-select: none;
+}
+
+.upload-img {
+    height: 20em;
+    object-fit: contain;
+}
+
+.verdict-text {
+    text-align: center;
+}

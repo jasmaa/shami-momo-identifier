@@ -5,10 +5,14 @@ Identifies if an image is of Shamiko or Momo
 ## Development
 
     # Frontend
-    cd web && yarn start
+    cd web
+    yarn install
+    yarn start
 
     # Backend
-    cd backend && flask run
+    cd backend
+    pip install -r requirements.txt
+    flask run
 
 ## Build with Docker
     docker build -t shami-momo .
