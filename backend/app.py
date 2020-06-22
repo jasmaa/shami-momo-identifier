@@ -4,13 +4,14 @@ from flask_cors import CORS
 import onnxruntime as rt
 import numpy as np
 from PIL import Image
-import base64
+
+from utils import softmax
 
 app = Flask(__name__, static_folder='public/')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 CORS(app)
 
-classes = ['momo', 'shamiko']
+classes = ['Momo', 'Shamiko']
 
 # Load model
 sess = rt.InferenceSession('models/final_model.onnx')
@@ -54,4 +55,9 @@ def identify():
     out_data = sess.run(None, {input_name: in_data})
     out_data = np.nan_to_num(out_data)
 
-    return jsonify({"response": classes[np.argmax(out_data)]}), 200
+    probability = int(100*np.max(softmax(out_data)))
+
+    return jsonify({
+        "identity": classes[np.argmax(out_data)],
+        "probability": probability,
+    }), 200

@@ -1,15 +1,30 @@
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    background-image: white;
+}
+
 .drop-box {
-    min-height: 30em;
+    min-height: 20em;
     border: dashed;
     border-width: 0.3em;
     border-radius: 1em;
-    border-color: gray;
+    border-color: dimgray;
     outline: none;
     user-select: none;
 }
 
+.drop-box-text {
+    font-size: 1.5em;
+    color: dimgray;
+}
+
 .upload-img {
-    height: 20em;
+    height: 15em;
     object-fit: contain;
 }
 
