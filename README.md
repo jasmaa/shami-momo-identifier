@@ -1,7 +1,7 @@
 # Shami-Momo Identifier
 
 Identifies if an image is of Shamiko or Momo using ResNet-18 trained off of Roger Park's
-[Machikado Mazoku face collection](https://onedrive.live.com/?id=5524F7DE20BB5EB2%21269088&cid=5524F7DE20BB5EB2)
+[Machikado Mazoku face collection](https://onedrive.live.com/?id=5524F7DE20BB5EB2%21269088&cid=5524F7DE20BB5EB2).
 
 ![Screenshot of Shami-Momo Identifier](docs/screenshot_01.png)
 
@@ -19,4 +19,4 @@ Identifies if an image is of Shamiko or Momo using ResNet-18 trained off of Roge
 
 ## Build with Docker
     docker build -t shami-momo .
-    docker run --rm -p 8000:8000 shami-momo:latest
+    docker run --name shami-momo --rm -d -p 8000:8000 -e PORT=8000 shami-momo:latest
