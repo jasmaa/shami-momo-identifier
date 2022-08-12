@@ -1,6 +1,0 @@
-numpy
-Flask
-flask_cors
-onnxruntime
-Pillow
-gunicorn
