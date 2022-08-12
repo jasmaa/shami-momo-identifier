@@ -6,7 +6,8 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "clean": "rimraf dist",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "gh-pages -f -d dist"
   },
   "author": "jasmaa",
   "license": "MIT",
@@ -18,6 +19,7 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "bootstrap": "^4.5.0",
+    "gh-pages": "^4.0.0",
     "onnxruntime-web": "^1.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

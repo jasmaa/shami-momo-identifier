@@ -22,7 +22,7 @@ export const shamiMomoResnet = {
   width: RESNET18_WIDTH,
   height: RESNET18_HEIGHT,
   classify: async (inputImgData: ImageData) => {
-    const session = await InferenceSession.create('/models/final_model.onnx');
+    const session = await InferenceSession.create('./models/final_model.onnx');
 
     const [inputR, inputG, inputB, _] = imageDataArrayToRgba(inputImgData.data);
     const tensorData = [...inputR, ...inputG, ...inputB].map(v => v / 256.0);
